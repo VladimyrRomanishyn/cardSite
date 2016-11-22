@@ -1,0 +1,4 @@
+1. Ability to change BG.
+2. SVG pullup menu.
+3. Semitransparent gradient, white on left and right margins and black in the center.
+4. Music onload.
