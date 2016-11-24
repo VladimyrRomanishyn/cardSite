@@ -231,21 +231,23 @@
 			
 			if(bHandler) {
 				
-				if(document.documentElement.requestFullScreen){document.documentElement.requestFullScreen();};
+				if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen();};
+				if(document.msRequestFullScreen){document.msRequestFullscreen();};
 				if(document.documentElement.mozRequestFullScreen){document.documentElement.mozRequestFullScreen();};
 				if(document.documentElement.webkitRequestFullScreen){document.documentElement.webkitRequestFullScreen();};
 				bHandler = false;
 				
 			}else if(!bHandler){
 				
-				if(document.cancelFullScreen){document.cancelFullScreen();}
+				if(document.cancelFullscreen){document.cancelFullscreen();}
+				if(document.msExitFullscreen){document.msExitFullscreen();}
 				if(document.webkitCancelFullScreen){document.webkitCancelFullScreen();}
 				if(document.mozCancelFullScreen){document.mozCancelFullScreen();}
 				bHandler = true;
 			}
 		}
 	
-		
+
 		addEvent(oFullScreenButton, "click", onfullscreenchange, false);
 		addEvent(oFullScreenButton, "touchstart", onfullscreenchange, false);
 
@@ -254,7 +256,64 @@
 //** The Pullup Nav Module   **//
 //**						 **//
 //------------------------------------------------------------------------------		
-	
+		function SVGMenu( el, options ) {
+				
+			this.el = el;
+			this.init();
+		}
+
+		SVGMenu.prototype.init = function() {
+				
+			this.trigger = this.el.querySelector( 'button.menu_handle' );
+			this.shapeEl = this.el.querySelector( 'div.morph-shape' );
+
+			var s = Snap( this.shapeEl.querySelector( 'svg' ) );
+			this.pathEl = s.select( 'path' );
+			this.paths = {
+				
+				reset : this.pathEl.attr( 'd' ),
+				open : this.shapeEl.getAttribute( 'data-morph-open' ),
+				close : this.shapeEl.getAttribute( 'data-morph-close' )
+			};
+
+			this.isOpen = false;
+			this.initEvents();
+		};
+
+		SVGMenu.prototype.initEvents = function() {
+
+			this.trigger.addEventListener( 'click', this.toggle.bind(this) );
+		
+		};
+
+		SVGMenu.prototype.toggle = function() {
+		
+			var self = this;
+
+			if( this.isOpen ) {
+				
+				classie.remove( self.el, 'menu--anim' );
+				setTimeout( function() {  classie.remove( id("content"), 'disnone' );	}, 550 );
+				setTimeout( function() { classie.remove( self.el, 'menu--open' );	}, 250 );
+								
+				this.pathEl.stop().animate( { 'path' : this.paths.close }, 350, mina.easeout, function() {
+					self.pathEl.stop().animate( { 'path' : self.paths.reset }, 700, mina.elastic );
+				} );
+			} else {
+
+				classie.add( self.el, 'menu--anim' );
+				setTimeout( function() { classie.add( id("content"), 'disnone' );	}, 550 );
+				setTimeout( function() { classie.add( self.el, 'menu--open' );	}, 250 );
+								
+				this.pathEl.stop().animate( { 'path' : this.paths.open }, 350, mina.backin, function() {
+					self.pathEl.stop().animate( { 'path' : self.paths.reset }, 700, mina.elastic );
+				} );
+			}
+			this.isOpen = !this.isOpen;
+		};
+
+		new SVGMenu( document.getElementById( 'menu' ) );
+
 })();
 
 

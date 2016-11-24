@@ -46,6 +46,11 @@ body{
 	margin: 10px auto;
 
 }
+.disnone{
+	
+	display: none;
+	
+}
 .content-container{
 	
 	position: absolute;
@@ -140,7 +145,7 @@ body{
 				 rgba(0,0,0,.1) 95%,
 				 rgba(0,0,0,0) 100%);
 	background: linear-gradient(left, rgba(0,0,0,.1) 0%,
-				  rgba(0,0,0,.1) 5%, 
+				 rgba(0,0,0,.1) 5%, 
 				 rgba(0,0,0,.2)10%,
 				 rgba(0,0,0,.4) 15%,
 				 rgba(0,0,0,.45) 20%,
@@ -180,8 +185,8 @@ body{
 
 .menu.menu--open {
 	pointer-events: auto;
-	-webkit-transform: translate3d(-50%, 0, 0);
-	transform: translate3d(-50%, 0, 0);
+	-webkit-transform: translate3d(-50%, -20%, 0);
+	transform: translate3d(-50%, -20%, 0);
 }
 
 .main {
@@ -208,6 +213,7 @@ body{
 }
 
 .menu ul li {
+
 	margin: 0;
 	-webkit-transform: translate3d(0, 150px, 0);
 	transform: translate3d(0, 150px, 0);
@@ -236,11 +242,26 @@ body{
 }
 
 .menu ul li a {
+
+	text-align: center;
+	position: relative;
+	width: 20%;
+	margin: 0 auto;
+	text-decoration: none;
+	color: #fff;
 	display: block;
 	outline: none;
 	font-size: 1.15em;
 	font-weight: bold;
 	padding: 0.85em;
+	border-bottom: 2px solid rgba(255,255,255, 0);
+	transition: border-bottom 1.5s;
+
+}
+.menu ul li a:hover{
+	
+	border-bottom: 2px solid rgba(255,255,255, 1);
+	
 }
 
 .menu_handle {
@@ -313,9 +334,9 @@ body{
 
 @media screen and (max-width: 63em) {
 	.menu {
-		background: #434d55;
-		background: -webkit-linear-gradient(top, rgba(67,77,85,0) 0%,rgba(67,77,85,1) 20%);
-		background: linear-gradient(to bottom, rgba(67,77,85,0) 0%, rgba(67,77,85,1) 20%);
+		/* background: #434d55; */
+		/* background: -webkit-linear-gradient(top, rgba(67,77,85,0) 0%,rgba(67,77,85,1) 20%); */
+		/* background: linear-gradient(to bottom, rgba(67,77,85,0) 0%, rgba(67,77,85,1) 20%); */
 	}
 	.menu.menu--open + .main {
 		opacity: 0.05;
